@@ -4,10 +4,20 @@
     "pages/logs/logs",
     "pages/test/test"
   ],
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/logs/logs",
+      "text": "日志"
+    }]
+  },
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "桦通通",
+    "navigationBarTextStyle":"black",
+    "backgroundColor": "#fff"
   }
 }
