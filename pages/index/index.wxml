@@ -7,10 +7,7 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
-    <text  bindtap="bindViewTapTest" class="user-motto">{{motto}}</text>
-  </view>
-  <view>
-    <map></map>
+  <view class="btn">
+    <button type="primary" plain="{{false}}" disabled="{{false}}" bindtap="goMap">go map</button>
   </view>
 </view>

@@ -1,0 +1,44 @@
+.container{
+    padding: 0;
+}
+
+#map{
+    height: 100vh;
+    width: 100%;
+}
+
+.controls{
+    width: 94%;
+    height: 20%;
+    background: #fff;
+    position: absolute;
+    bottom: 30rpx;
+    left: 3%;
+    border: 1px solid rgb(183, 220, 241);
+}
+
+.name, .address{
+    display: block;
+    width: 100%;
+    color: #888;
+    font-size: 14px;
+    font-family: '宋体';
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.address{
+    padding: 0 0 0 20px;
+    margin-top: -10px;
+    font-size: 12px;
+}
+
+.chessBtn{
+    width: 30%;
+    height: 30%;
+    font-size: 14px;
+    background: rgb(183, 220, 241);
+    color: #fff;
+    margin-top: 5px;
+    line-height: 30px;
+}

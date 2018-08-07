@@ -10,14 +10,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function() {
-    console.log(12121212)
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   bindViewTapTest: function() {
-    console.log(1212121212)
     wx.navigateTo({
       url: '../test/test'
     })
@@ -56,6 +49,11 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  goMap: function() {
+    wx.navigateTo({
+      url: '../map/map'
     })
   }
 })

@@ -1,0 +1,20 @@
+<view class="container">
+    <map id="map" 
+         longitude="{{longitude}}" 
+         latitude="{{latitude}}" 
+         scale="14" 
+         controls="{{controls}}" 
+         bindcontroltap="controltap" 
+         markers="{{markers}}" 
+         bindmarkertap="markertap" 
+         polyline="{{polyline}}" 
+         bindregionchange="regionchange" 
+         show-location 
+    >
+        <cover-view class="controls">
+            <text class="name">{{name}}</text>
+            <text class="address">{{address}}</text>
+            <button class="chessBtn" bindtap="chessMap">重新选择</button>
+        </cover-view>
+    </map>
+</view>
