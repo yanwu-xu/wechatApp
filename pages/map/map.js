@@ -1,3 +1,5 @@
+const app = getApp()
+
 Page({
     data: {
         markers: '',
@@ -25,9 +27,9 @@ Page({
         console.log(e.markerId)
     },
     chessMapCommon() {
+        const app = getApp()
         wx.chooseLocation({
             success: ({longitude, latitude, name, address}) => {
-                console.log(11111, {longitude, latitude, name, address})
                 this.setData({
                     longitude,
                     latitude,
@@ -36,22 +38,22 @@ Page({
                 })
                 this.setData({
                     markers:[{
-                        iconPath: "./img/icon-home-active.png",
+                        iconPath: "./img/map-icon.png",
                         id: 0,
                         latitude,
                         longitude,
-                        width: 20,
-                        height: 20,
+                        width: 40,
+                        height: 40,
                         label: {
-                            content: '哈哈哈',
-                            color: '#fe5632',
+                            content: app.globalData.userInfo.nickName,
+                            color: '#12e694',
                             textAlign: 'left'
                         }
                     }]
                 })
             },
             fail: () => {
-                console.log(22223444)
+
             }
         })
     },
@@ -62,3 +64,4 @@ Page({
         this.chessMapCommon()
     }
   })
+  
