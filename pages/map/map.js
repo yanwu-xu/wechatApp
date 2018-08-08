@@ -51,7 +51,7 @@ Page({
                 })
             },
             fail: () => {
-                coansole.log(22223444)
+                console.log(22223444)
             }
         })
     },
