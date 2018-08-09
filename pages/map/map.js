@@ -2,55 +2,113 @@ const app = getApp()
 
 Page({
     data: {
-        markers: '',
-        polyline: [{
-            points: [{
-                longitude: 113.3245211,
-                latitude: 23.10229
-            }, {
-                longitude: 113.324520,
-                latitude: 23.21229
-            }],
-            color:"#FF0000DD",
-            width: 2,
-            dottedLine: true
-        }],
-        longitude: '',
-        latitude: '',
-        name: '',
-        address: ''
+        markers:'',
+        polyline: '',
+        longitudeCenter: '',
+        latitudeCenter: '',
+        longitudeFrom: '',
+        latitudeFrom: '',
+        longitudeTo: '',
+        latitudeTo: '',
+        nameFrom: '现在的位置',
+        addressFrom: '现在的位置',
+        nameTo: '',
+        addressTo: '',
+        lineLength: ''
     },
     regionchange(e) {
-        console.log(e.type)
+        console.log(5656565,e.type)
     },
+    //点击marker
     markertap(e) {
-        console.log(e.markerId)
+        console.log(1212, e.markerId)
+        this.chessMapCommon(e.markerId)
     },
-    chessMapCommon() {
+    //获取两点间距离
+    getLength() {
+        const EARTH_RADIUS = 6378137.0
+        const PI = Math.PI
+        let radLat1 = this.data.latitudeFrom*PI/180.0
+        let radLat2 = this.data.latitudeTo*PI/180.0
+        
+        let a = radLat1 - radLat2
+        let b = this.data.longitudeFrom*PI/180.0 - this.data.longitudeTo*PI/180.0
+        
+        let s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)))
+        s = s*EARTH_RADIUS
+        s = Math.round(s*10000)/10000.0
+        this.setData({
+            lineLength: s
+        })
+    },
+    //
+    chessMapCommon(type) {
         const app = getApp()
         wx.chooseLocation({
             success: ({longitude, latitude, name, address}) => {
                 this.setData({
-                    longitude,
-                    latitude,
-                    name,
-                    address
+                    ['longitude' + type]: longitude,
+                    ['latitude' + type]: latitude,
+                    ['name' + type]: name,
+                    ['address' + type]: address
+                })
+                let longitudeCenter = (this.data.longitudeTo + this.data.longitudeFrom)/2
+                let latitudeCenter = (this.data.latitudeTo + this.data.latitudeFrom)/2
+                this.setData({
+                    longitudeCenter,
+                    latitudeCenter
                 })
                 this.setData({
-                    markers:[{
+                    polyline: [{
+                        points: [{
+                            longitude: this.data.longitudeFrom,
+                            latitude: this.data.latitudeFrom
+                        }, {
+                            longitude: this.data.longitudeTo,
+                            latitude: this.data.latitudeTo
+                        }],
+                        color:"#FF0000DD",
+                        width: 4,
+                        arrowLine: true,
+                        dottedLine: true
+                    }],
+                })
+                this.setData({
+                    markers: [{
                         iconPath: "./img/map-icon.png",
-                        id: 0,
-                        latitude,
-                        longitude,
+                        id: 'From',
+                        longitude: this.data.longitudeFrom,
+                        latitude: this.data.latitudeFrom,
                         width: 40,
                         height: 40,
                         label: {
-                            content: app.globalData.userInfo.nickName,
-                            color: '#12e694',
-                            textAlign: 'left'
+                            content: '起点',
+                            color: '#ffffff',
+                            textAlign: 'left',
+                            fontSize: 12,
+                            bgColor: '#8AC9FF',
+                            padding: 2,
+                            borderRadius: 4
+                        }
+                    }, {
+                        iconPath: "./img/map-icon.png",
+                        id: 'To',
+                        longitude: this.data.longitudeTo,
+                        latitude: this.data.latitudeTo,
+                        width: 40,
+                        height: 40,
+                        label: {
+                            content: '终点',
+                            color: '#ffffff',
+                            textAlign: 'left',
+                            fontSize: 12,
+                            bgColor: '#8AC9FF',
+                            padding: 2,
+                            borderRadius: 4
                         }
                     }]
                 })
+                this.getLength()
             },
             fail: () => {
 
@@ -58,7 +116,16 @@ Page({
         })
     },
     onLoad: function () {
-        this.chessMapCommon()
+        //获取当前位子
+        wx.getLocation({
+            success: ({longitude, latitude}) => {
+                this.setData({
+                    longitudeFrom: longitude,
+                    latitudeFrom: latitude
+                })
+                this.chessMapCommon('To')
+            }
+        })
     },
     chessMap() {
         this.chessMapCommon()

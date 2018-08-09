@@ -9,15 +9,70 @@
 
 .controls{
     width: 94%;
-    height: 20%;
+    height: 27%;
     background: #fff;
     position: absolute;
     bottom: 30rpx;
     left: 3%;
     border: 1px solid rgb(183, 220, 241);
+    box-sizing: border-box;
+    padding: 20px 0;
 }
 
-.name, .address{
+cover-view{
+    box-sizing: border-box;
+}
+
+.name{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: rgb(210, 216, 221);
+}
+
+.nameFrom, .nameTo{
+    width: 50%;
+    font-size: 13px;
+    font-family: '宋体';
+    color: rgb(161, 165, 168);
+    padding: 0 50rpx 0 30rpx;
+    white-space: normal;
+    font-weight: 900;
+    position: relative;
+    text-align: center;
+}
+
+.nameFrom{
+    
+}
+
+.nameTo{
+    
+}
+
+.img{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    right: 25rpx;
+}
+
+.length{
+    font-size: 12px;
+    padding: 20rpx 55rpx;
+    text-align: right;
+    color: rgb(161, 165, 168);
+}
+
+.num{
+    display: inline;
+    font-size: 14px;
+    color: rgb(146, 207, 243);
+    font-weight: 900;
+}
+
+.name1, .address1{
     display: block;
     width: 100%;
     color: #888;
@@ -25,9 +80,10 @@
     font-family: '宋体';
     padding: 20px;
     box-sizing: border-box;
+    text-align: center
 }
 
-.address{
+.address1{
     padding: 0 0 0 20px;
     margin-top: -10px;
     font-size: 12px;
