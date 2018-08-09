@@ -14,7 +14,11 @@ Page({
         addressFrom: '现在的位置',
         nameTo: '',
         addressTo: '',
-        lineLength: ''
+        lineLength: '',
+        showAddressFrom: false,
+        showAddressTo: false,
+        addressFromDescript: '',
+        addressToDescript: ''
     },
     regionchange(e) {
         console.log(5656565,e.type)
@@ -129,6 +133,20 @@ Page({
     },
     chessMap() {
         this.chessMapCommon()
+    },
+    addressShow1() {
+        this.setData({
+            showAddressTo: false,
+            showAddressFrom: !this.data.showAddressFrom,
+            addressFromDescript: this.data.addressFrom
+        })
+    },
+    addressShow2() {
+        this.setData({
+            showAddressFrom: false,
+            showAddressTo: !this.data.showAddressTo,
+            addressToDescript: this.data.addressTo
+        })
     }
   })
   

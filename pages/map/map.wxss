@@ -65,28 +65,29 @@ cover-view{
     color: rgb(161, 165, 168);
 }
 
+.text{
+    display: inline;
+}
+
 .num{
     display: inline;
-    font-size: 14px;
+    padding: 0 9px;
+    font-size: 16px;
     color: rgb(146, 207, 243);
-    font-weight: 900;
 }
 
-.name1, .address1{
-    display: block;
+.descript{
+    position: relative;
+}
+
+.addressTo{
     width: 100%;
-    color: #888;
-    font-size: 14px;
-    font-family: '宋体';
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center
-}
-
-.address1{
-    padding: 0 0 0 20px;
-    margin-top: -10px;
-    font-size: 12px;
+    background: #fff;
+    font-size: 15px;
+    color: rgb(161, 165, 168);
+    text-align: center;
+    padding: 20rpx 55rpx;
+    position: absolute;
 }
 
 .chessBtn{

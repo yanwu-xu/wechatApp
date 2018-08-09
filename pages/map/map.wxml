@@ -12,16 +12,22 @@
     >
         <cover-view class="controls">
             <cover-view class="name">
-                <cover-view class="nameFrom">{{nameFrom}}<cover-image class="img" src="./img/map-icon.png"></cover-image></cover-view>
+                <cover-view class="nameFrom" bindtap="addressShow1">{{nameFrom}}<cover-image class="img" src="./img/map-icon.png"></cover-image></cover-view>
                 <cover-view>-------</cover-view>
-                <cover-view class="nameTo">{{nameTo}}<cover-image class="img" src="./img/map-icon.png"></cover-image></cover-view>
+                <cover-view class="nameTo" bindtap="addressShow2">{{nameTo}}<cover-image class="img" src="./img/map-icon.png"></cover-image></cover-view>
             </cover-view>
             
-            <!-- <cover-view class="addressFrom">{{addressFrom}}</cover-view>
+            <!-- <cover-view class="addressFrom">{{addressFrom}}</cover-view> -->
+            <cover-view class="descript">
+                <cover-view wx:if="{{showAddressFrom}}" class="addressTo">起点：{{addressFromDescript}}</cover-view>
+                <cover-view wx:if="{{showAddressTo}}" class="addressTo">终点：{{addressToDescript}}</cover-view>
             
-            <cover-view class="addressTo">{{addressTo}}</cover-view> -->
-            
-            <cover-view class="length">两地直线距离<cover-view class="num">  {{lineLength}}  </cover-view>米</cover-view>
+                <cover-view class="length">
+                    <cover-view class="text">两地直线距离</cover-view>
+                    <cover-view class="num">{{lineLength}}</cover-view>
+                    <cover-view class="text">米</cover-view>
+                </cover-view>
+            </cover-view>
             <button class="chessBtn" bindtap="chessMap">重新选择</button>
         </cover-view>
     </map>
