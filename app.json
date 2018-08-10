@@ -1,14 +1,14 @@
 {
   "pages":[
-    "pages/map/map",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/map/map"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "桦通通",
+    "navigationBarTitleText": "小工具",
     "navigationBarTextStyle":"black",
     "backgroundColor": "#fff"
   }

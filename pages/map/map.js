@@ -18,7 +18,9 @@ Page({
         showAddressFrom: false,
         showAddressTo: false,
         addressFromDescript: '',
-        addressToDescript: ''
+        addressToDescript: '',
+        animationFromData: '',
+        animationToData: ''
     },
     regionchange(e) {
         console.log(5656565,e.type)
@@ -134,18 +136,87 @@ Page({
     chessMap() {
         this.chessMapCommon()
     },
-    addressShow1() {
+    addressShowFrom() {
+        let animationFrom, animationTo
+
+        if (!this.data.showAddressTo) {
+            animationFrom = wx.createAnimation({
+                duration: 500,
+                timingFunction: 'ease'
+            })
+            animationTo = wx.createAnimation({})
+            if (!this.data.showAddressFrom) {
+                animationFrom.translateY(37).step()
+            } else {
+                animationFrom.translateY(-37).step()
+            }
+        } else {
+            animationFrom = wx.createAnimation({
+                duration: 500,
+                timingFunction: 'ease',
+                delay: 500
+            })
+            animationTo = wx.createAnimation({
+                duration: 500,
+                timingFunction: 'ease'
+            })
+            if (!this.data.showAddressFrom) {
+                animationFrom.translateY(37).step()
+                animationTo.translateY(-37).step()
+            } else {
+                animationFrom.translateY(-37).step()
+                animationTo.translateY(-37).step()
+            }
+        }
+        
+
         this.setData({
             showAddressTo: false,
             showAddressFrom: !this.data.showAddressFrom,
-            addressFromDescript: this.data.addressFrom
+            addressFromDescript: this.data.addressFrom,
+            animationFromData: animationFrom.export(),
+            animationToData: animationTo.export()
         })
     },
-    addressShow2() {
+    addressShowTo() {
+        let animationTo, animationFrom
+
+        if (!this.data.showAddressFrom) {
+            animationTo = wx.createAnimation({
+                duration: 500,
+                timingFunction: 'ease'
+            })
+            animationFrom = wx.createAnimation({})
+            if (!this.data.showAddressTo) {
+                animationTo.translateY(37).step()
+            } else {
+                animationTo.translateY(-37).step()
+            }
+        } else {
+            animationTo = wx.createAnimation({
+                duration: 500,
+                timingFunction: 'ease',
+                delay: 500
+            })
+            animationFrom = wx.createAnimation({
+                duration: 500,
+                timingFunction: 'ease'
+            })
+            if (!this.data.showAddressTo) {
+                animationTo.translateY(37).step()
+                animationFrom.translateY(-37).step()
+            } else {
+                animationTo.translateY(-37).step()
+                animationFrom.translateY(-37).step()
+            }
+        }
+        
         this.setData({
             showAddressFrom: false,
             showAddressTo: !this.data.showAddressTo,
-            addressToDescript: this.data.addressTo
+            addressToDescript: this.data.addressTo,
+            animationFromData: animationFrom.export(),
+            animationToData: animationTo.export()
         })
     }
   })

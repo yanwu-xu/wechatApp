@@ -8,6 +8,21 @@
     </block>
   </view>
   <view class="btn">
-    <button type="primary" plain="{{false}}" disabled="{{false}}" bindtap="goMap">go map</button>
+    <view bindtap="goMap">
+      <image class="icon" src="./img/earth.png" mode="cover"></image>
+      <text>地图</text>
+    </view>
+    <view>
+      <image class="icon" src="./img/biaoqian.png" mode="cover"></image>
+      <text>标记</text>
+    </view>
+    <view>
+      <image class="icon" src="./img/book.png" mode="cover"></image>
+      <text>记录</text>
+    </view>
+    <view>
+      <image class="icon" src="./img/chi.png" mode="cover"></image>
+      <text>测量</text>
+    </view>
   </view>
 </view>
