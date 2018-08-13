@@ -42,14 +42,6 @@ cover-view{
     text-align: center;
 }
 
-.nameFrom{
-    
-}
-
-.nameTo{
-    
-}
-
 .img{
     width: 15px;
     height: 15px;

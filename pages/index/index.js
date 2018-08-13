@@ -55,5 +55,10 @@ Page({
     wx.navigateTo({
       url: '../map/map'
     })
+  },
+  goCompass: function() {
+    wx.navigateTo({
+      url: '../compass/compass'
+    })
   }
 })

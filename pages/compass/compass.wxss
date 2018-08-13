@@ -1,0 +1,30 @@
+.container-compass{
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 150rpx 25rpx;
+    background: #33789B;
+    position: relative;
+}
+
+.line{
+    width: 0;
+    height: 150rpx;
+    border-left: 1rpx solid #fff;
+    display: block;
+    position: absolute;
+    left: 374rpx;
+    top: 100rpx;
+}
+
+.compassImg{
+    width: 700rpx;
+    height: 700rpx;
+}
+
+.deg{
+    width: 100%;
+    margin-top: 100rpx;
+    display: block;
+    color: #fff;
+    text-align: center;
+}

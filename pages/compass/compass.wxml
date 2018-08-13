@@ -1,0 +1,5 @@
+<view class="container-compass">
+    <text class="line"></text>
+    <image class="compassImg" src="./img/compass-dark.png" style="transform:rotate(-{{deg}}deg);"></image>
+    <text class="deg">{{directionZh}}: {{deg}}</text>
+</view>

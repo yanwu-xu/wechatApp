@@ -12,9 +12,9 @@
       <image class="icon" src="./img/earth.png" mode="cover"></image>
       <text>地图</text>
     </view>
-    <view>
-      <image class="icon" src="./img/biaoqian.png" mode="cover"></image>
-      <text>标记</text>
+    <view bindtap="goCompass">
+      <image class="icon" src="./img/compass.png" mode="cover"></image>
+      <text>指南针</text>
     </view>
     <view>
       <image class="icon" src="./img/book.png" mode="cover"></image>
