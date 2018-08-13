@@ -236,7 +236,7 @@ Page({
     },
     onShareAppMessage: function(options) {
         return {
-            title: '桦通通-小程序',
+            title: '距离测算',
             path: `/pages/map/map?longitude=${this.data.longitudeFrom}&latitude=${this.data.latitudeFrom}&userName=${app.globalData.userInfo.nickName}`
         }
     }
