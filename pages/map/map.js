@@ -2,15 +2,49 @@ const app = getApp()
 
 Page({
     data: {
-        markers:'',
-        polyline: '',
+        markers: [{
+            iconPath: "./img/map-icon.png",
+            id: 'From',
+            width: 40,
+            height: 40,
+            label: {
+                content: '起点',
+                color: '#ffffff',
+                textAlign: 'left',
+                fontSize: 12,
+                bgColor: '#8AC9FF',
+                padding: 2,
+                borderRadius: 4
+            }
+        }, {
+            iconPath: "./img/map-icon.png",
+            id: 'To',
+            width: 40,
+            height: 40,
+            label: {
+                content: '终点',
+                color: '#ffffff',
+                textAlign: 'left',
+                fontSize: 12,
+                bgColor: '#8AC9FF',
+                padding: 2,
+                borderRadius: 4
+            }
+        }],
+        polyline: [{
+            points: [],
+            color:"#FF0000DD",
+            width: 4,
+            arrowLine: true,
+            dottedLine: true
+        }],
         longitudeCenter: '',
         latitudeCenter: '',
         longitudeFrom: '',
         latitudeFrom: '',
         longitudeTo: '',
         latitudeTo: '',
-        nameFrom: '现在的位置',
+        nameFrom: '你的位置',
         addressFrom: '现在的位置',
         nameTo: '',
         addressTo: '',
@@ -46,81 +80,46 @@ Page({
             lineLength: s
         })
     },
-    //
+    //设置map的参数
+    setMapData(longitude, latitude, name, address, type) {
+        this.setData({
+            ['longitude' + type]: longitude,
+            ['latitude' + type]: latitude,
+            ['name' + type]: name,
+            ['address' + type]: address
+        })
+        let longitudeCenter = (this.data.longitudeTo + this.data.longitudeFrom)/2
+        let latitudeCenter = (this.data.latitudeTo + this.data.latitudeFrom)/2
+        this.setData({
+            longitudeCenter,
+            latitudeCenter
+        })
+        console.log('zhongjain', longitudeCenter, '----', latitudeCenter)
+        this.setData({
+            'polyline[0].points[0].longitude': this.data.longitudeFrom,
+            'polyline[0].points[0].latitude': this.data.latitudeFrom,
+            'polyline[0].points[1].longitude': this.data.longitudeTo,
+            'polyline[0].points[1].latitude': this.data.latitudeTo
+        })
+        this.setData({
+            'markers[0].longitude': this.data.longitudeFrom,
+            'markers[0].latitude': this.data.latitudeFrom,
+            'markers[1].longitude': this.data.longitudeTo,
+            'markers[1].latitude': this.data.latitudeTo
+        })
+        this.getLength()
+    },
+    //调取地图选取地点
     chessMapCommon(type) {
         const app = getApp()
         wx.chooseLocation({
             success: ({longitude, latitude, name, address}) => {
-                this.setData({
-                    ['longitude' + type]: longitude,
-                    ['latitude' + type]: latitude,
-                    ['name' + type]: name,
-                    ['address' + type]: address
-                })
-                let longitudeCenter = (this.data.longitudeTo + this.data.longitudeFrom)/2
-                let latitudeCenter = (this.data.latitudeTo + this.data.latitudeFrom)/2
-                this.setData({
-                    longitudeCenter,
-                    latitudeCenter
-                })
-                this.setData({
-                    polyline: [{
-                        points: [{
-                            longitude: this.data.longitudeFrom,
-                            latitude: this.data.latitudeFrom
-                        }, {
-                            longitude: this.data.longitudeTo,
-                            latitude: this.data.latitudeTo
-                        }],
-                        color:"#FF0000DD",
-                        width: 4,
-                        arrowLine: true,
-                        dottedLine: true
-                    }],
-                })
-                this.setData({
-                    markers: [{
-                        iconPath: "./img/map-icon.png",
-                        id: 'From',
-                        longitude: this.data.longitudeFrom,
-                        latitude: this.data.latitudeFrom,
-                        width: 40,
-                        height: 40,
-                        label: {
-                            content: '起点',
-                            color: '#ffffff',
-                            textAlign: 'left',
-                            fontSize: 12,
-                            bgColor: '#8AC9FF',
-                            padding: 2,
-                            borderRadius: 4
-                        }
-                    }, {
-                        iconPath: "./img/map-icon.png",
-                        id: 'To',
-                        longitude: this.data.longitudeTo,
-                        latitude: this.data.latitudeTo,
-                        width: 40,
-                        height: 40,
-                        label: {
-                            content: '终点',
-                            color: '#ffffff',
-                            textAlign: 'left',
-                            fontSize: 12,
-                            bgColor: '#8AC9FF',
-                            padding: 2,
-                            borderRadius: 4
-                        }
-                    }]
-                })
-                this.getLength()
-            },
-            fail: () => {
-
+                this.setMapData(longitude, latitude, name, address, type)
             }
         })
     },
-    onLoad: function () {
+    onLoad: function (options) {
+        console.log('options', options)
         //获取当前位子
         wx.getLocation({
             success: ({longitude, latitude}) => {
@@ -128,7 +127,25 @@ Page({
                     longitudeFrom: longitude,
                     latitudeFrom: latitude
                 })
-                this.chessMapCommon('To')
+                if(Object.keys(options).length) {
+                    wx.authorize({
+                        scope: 'scope.userInfo',
+                        success: () => {
+                            wx.getUserInfo({
+                                success: res => {
+                                    this.setData({
+                                        'markers[0].label.content': res.userInfo.nickName || '',
+                                        'markers[1].label.content': options.userName || '',
+                                    })
+                                }
+                            })
+                        }
+                    })
+                    
+                    this.setMapData(options.longitude, options.latitude, '终点', '终点address', 'To')
+                } else {
+                    this.chessMapCommon('To')
+                }
             }
         })
     },
@@ -167,7 +184,6 @@ Page({
                 animationTo.translateY(-37).step()
             }
         }
-        
 
         this.setData({
             showAddressTo: false,
@@ -217,6 +233,12 @@ Page({
             animationFromData: animationFrom.export(),
             animationToData: animationTo.export()
         })
+    },
+    onShareAppMessage: function(options) {
+        return {
+            title: '桦通通-小程序',
+            path: `/pages/map/map?longitude=${this.data.longitudeFrom}&latitude=${this.data.latitudeFrom}&userName=${app.globalData.userInfo.nickName}`
+        }
     }
   })
   
