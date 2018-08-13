@@ -27,7 +27,6 @@ Page({
     },
     //点击marker
     markertap(e) {
-        console.log(1212, e.markerId)
         this.chessMapCommon(e.markerId)
     },
     //获取两点间距离

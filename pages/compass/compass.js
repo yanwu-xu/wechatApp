@@ -22,5 +22,8 @@ Page({
                 directionZh
             })
         })
+    },
+    onUnload: function() {
+        wx.stopCompass()
     }
 })
